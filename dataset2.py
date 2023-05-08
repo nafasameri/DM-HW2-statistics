@@ -3,6 +3,17 @@ import seaborn as sns
 import pandas as pd
 from matplotlib import pyplot as plt
 
+
+def boxplot(data, name):
+    plt.figure(figsize=(24, 8))
+    sns.boxplot(x='Total Pay & Benefits', y='Job Title', data=data)
+    # plt.yticks(rotation=45, ha="right")
+    plt.yticks(ha="left")
+    plt.title(name)
+    plt.savefig('Boxplot ' + name + '.png')
+
+
+
 columns_dataset2 = ['Employee Name', 'Job Title', 'Base Pay', 'Overtime Pay', 'Other Pay', 'Benefits', 'Total Pay',
                     'Total Pay & Benefits', 'Year', 'Notes', 'Agency', 'Status']
 
@@ -53,8 +64,8 @@ print('Mode:', statistics.mode(OvertimePay))
 
 plt.figure(figsize=(10, 8))
 sns.boxplot(x='Overtime Pay', data=dataset2)
+plt.title('Overtime Pay')
 plt.savefig('Boxplot Overtime Pay.png')
-
 
 print('============== Other Pay ===============')
 OtherPay = dataset2['Other Pay']
@@ -75,8 +86,8 @@ print('Mode:', statistics.mode(Benefits))
 
 plt.figure(figsize=(10, 8))
 sns.boxplot(x='Benefits', data=dataset2)
+plt.title('Benefits')
 plt.savefig('Boxplot Benefits.png')
-
 
 print('============== Total Pay ===============')
 TotalPay = dataset2['Total Pay']
@@ -88,16 +99,40 @@ print('Mode:', statistics.mode(TotalPay))
 
 plt.figure(figsize=(10, 8))
 sns.boxplot(x='Total Pay', data=dataset2)
+plt.title('Total Pay')
 plt.savefig('Boxplot Total Pay.png')
+
+print('============== Total Pay & Benefits ===============')
+plt.figure(figsize=(10, 8))
+sns.boxplot(x='Total Pay & Benefits', data=dataset2)
+plt.title('Total Pay & Benefits')
+plt.savefig('Boxplot Total Pay & Benefits.png')
 
 
 # ================= boxplot =================
 # dataset2[['Job Title 1', 'Job Title 2', 'Job Title 3', 'Job Title 4']] = JobTitle.str.split(',', expand=True)
-PROGRAMMER = dataset2[JobTitle.str.contains('PROGRAMMER')]
-RESEARCH = dataset2[JobTitle.str.contains('RESEARCH')]
-data = pd.concat([PROGRAMMER])
+# data['Job Title'] = data['Job Title'].str.lower()
 
-plt.figure(figsize=(30, 8))
-plt.yticks(rotation=30, ha="right")
-sns.boxplot(x='Total Pay & Benefits', y='Job Title', data=data)
-plt.savefig('Boxplot Job Title PROGRAMMER & Total Pay & Benefits.png')
+PROGRAMMER = dataset2[JobTitle.str.contains('PROGRAMMER')]
+data = pd.concat([PROGRAMMER])
+boxplot(data, 'PROGRAMMER & Total Pay & Benefits')
+
+COMPUTER = dataset2[JobTitle.str.contains('COMPUTER')]
+data = pd.concat([COMPUTER])
+boxplot(data, 'COMPUTER & Total Pay & Benefits')
+
+ENGINEERING = dataset2[JobTitle.str.contains('ENGINEERING')]
+data = pd.concat([ENGINEERING])
+boxplot(data, 'ENGINEERING & Total Pay & Benefits')
+
+# RESEARCHER = dataset2[JobTitle.str.contains('RESEARCHER')]
+# data = pd.concat([RESEARCHER])
+# boxplot(data, 'RESEARCHER & Total Pay & Benefits')
+
+PHYSICIANANDSURGEON = dataset2[JobTitle.str.contains('PHYSICIAN AND SURGEON')]
+data = pd.concat([PHYSICIANANDSURGEON])
+boxplot(data, 'PHYSICIAN AND SURGEON & Total Pay & Benefits')
+
+DENTIST = dataset2[JobTitle.str.contains('DENTIST')]
+data = pd.concat([DENTIST])
+boxplot(data, 'DENTIST & Total Pay & Benefits')
