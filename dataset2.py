@@ -7,8 +7,8 @@ from matplotlib import pyplot as plt
 def boxplot(data, name):
     plt.figure(figsize=(24, 8))
     sns.boxplot(x='Total Pay & Benefits', y='Job Title', data=data)
-    # plt.yticks(rotation=45, ha="right")
-    plt.yticks(ha="left")
+    plt.yticks(rotation=30, ha="right")
+    # plt.yticks(ha="left")
     plt.title(name)
     plt.savefig('Boxplot ' + name + '.png')
 
@@ -113,26 +113,45 @@ plt.savefig('Boxplot Total Pay & Benefits.png')
 # dataset2[['Job Title 1', 'Job Title 2', 'Job Title 3', 'Job Title 4']] = JobTitle.str.split(',', expand=True)
 # data['Job Title'] = data['Job Title'].str.lower()
 
+# PROGRAMMER = dataset2[JobTitle.str.contains('PROGRAMMER')]
+# data = pd.concat([PROGRAMMER])
+# boxplot(data, 'PROGRAMMER & Total Pay & Benefits')
+#
+# COMPUTER = dataset2[JobTitle.str.contains('COMPUTER')]
+# data = pd.concat([COMPUTER])
+# boxplot(data, 'COMPUTER & Total Pay & Benefits')
+#
+# ENGINEERING = dataset2[JobTitle.str.contains('ENGINEERING')]
+# data = pd.concat([ENGINEERING])
+# boxplot(data, 'ENGINEERING & Total Pay & Benefits')
+#
+# # RESEARCHER = dataset2[JobTitle.str.contains('RESEARCHER')]
+# # data = pd.concat([RESEARCHER])
+# # boxplot(data, 'RESEARCHER & Total Pay & Benefits')
+#
+# PHYSICIANANDSURGEON = dataset2[JobTitle.str.contains('PHYSICIAN AND SURGEON')]
+# data = pd.concat([PHYSICIANANDSURGEON])
+# boxplot(data, 'PHYSICIAN AND SURGEON & Total Pay & Benefits')
+#
+# DENTIST = dataset2[JobTitle.str.contains('DENTIST')]
+# data = pd.concat([DENTIST])
+# boxplot(data, 'DENTIST & Total Pay & Benefits')
+
+
+
+
+dataset2.loc[JobTitle.str.contains('PROGRAMMER'), 'Job Title'] = 'PROGRAMMER'
+dataset2.loc[JobTitle.str.contains('DENTIST'), 'Job Title'] = 'DENTIST'
+dataset2.loc[JobTitle.str.contains('COMPUTER'), 'Job Title'] = 'COMPUTER'
+dataset2.loc[JobTitle.str.contains('ENGINEERING'), 'Job Title'] = 'ENGINEERING'
+dataset2.loc[JobTitle.str.contains('PHYSICIAN AND SURGEON'), 'Job Title'] = 'PHYSICIAN AND SURGEON'
+
+
 PROGRAMMER = dataset2[JobTitle.str.contains('PROGRAMMER')]
-data = pd.concat([PROGRAMMER])
-boxplot(data, 'PROGRAMMER & Total Pay & Benefits')
-
 COMPUTER = dataset2[JobTitle.str.contains('COMPUTER')]
-data = pd.concat([COMPUTER])
-boxplot(data, 'COMPUTER & Total Pay & Benefits')
-
 ENGINEERING = dataset2[JobTitle.str.contains('ENGINEERING')]
-data = pd.concat([ENGINEERING])
-boxplot(data, 'ENGINEERING & Total Pay & Benefits')
-
-# RESEARCHER = dataset2[JobTitle.str.contains('RESEARCHER')]
-# data = pd.concat([RESEARCHER])
-# boxplot(data, 'RESEARCHER & Total Pay & Benefits')
-
 PHYSICIANANDSURGEON = dataset2[JobTitle.str.contains('PHYSICIAN AND SURGEON')]
-data = pd.concat([PHYSICIANANDSURGEON])
-boxplot(data, 'PHYSICIAN AND SURGEON & Total Pay & Benefits')
-
 DENTIST = dataset2[JobTitle.str.contains('DENTIST')]
-data = pd.concat([DENTIST])
-boxplot(data, 'DENTIST & Total Pay & Benefits')
+data = pd.concat([DENTIST, PHYSICIANANDSURGEON, ENGINEERING, PROGRAMMER, COMPUTER])
+
+boxplot(data, 'Job Title & Total Pay & Benefits')
